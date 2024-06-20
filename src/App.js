@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
 import { Button } from './button';
+import { Cron } from './Interval';
 
 
 
@@ -14,10 +15,11 @@ function App() {
     setrunning(true);
     setPaused(false);
   }
-  const Pause =  ()=>{
+  const Pause = ()=>{
     setrunning(false);
     setPaused(true);
   }
+
   useEffect(()=>{
     let Interval;
     
@@ -32,26 +34,16 @@ function App() {
       clearInterval(Interval);
     }
   },[running,Paused]);
-const Reset = () =>{
-  Pause();
-  setTime(0);
-}
-const AddZero = (time) => ("0" + time).slice(-2);
+  
+  const Reset = () =>{
+    Pause();
+    setTime(0);
+  }
   return (
     <div className="App">
+
       <div className='Cron-App'>
-        <h1>Cron</h1>
-        <div className='digits'>
-          <span id='Minutos'>
-            {AddZero(Math.floor((time / 60000) % 60))}
-          </span>
-          <span id='Seconds'>
-            {AddZero(Math.floor((time / 1000) % 60))}  
-          </span>
-          <span id='Ms'>
-            {AddZero((time / 10 ) % 100)}
-          </span>
-        </div>
+        <Cron time={time} />
         
         <div className='Actions'>
           <Button text = {'Iniciar'} onClickou={Start} disabled={running} className="Btn Btn-Start"/>
