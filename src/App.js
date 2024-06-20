@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
+import { Button } from './button';
 
 
 
@@ -8,8 +9,7 @@ function App() {
   const[time, setTime] = useState(0); 
   const[running,setrunning] = useState(false)
   const[Paused ,setPaused] = useState(false)
-  
-  
+
   const Start = () =>{
     setrunning(true);
     setPaused(false);
@@ -52,18 +52,14 @@ const AddZero = (time) => ("0" + time).slice(-2);
             {AddZero((time / 10 ) % 100)}
           </span>
         </div>
+        
         <div className='Actions'>
-          <button disabled={running} className='Btn Btn-Start' onClick={Start}>
-            Iniciar
-          </button>
-          <button className='Btn Btn-Pause' onClick={Pause}>
-            Pausar
-          </button>
-          <button className='Btn Btn-Reset' onClick={Reset}>
-            Resetar
-          </button>
+          <Button text = {'Iniciar'} onClickou={Start} disabled={running} className="Btn Btn-Start"/>
+          <Button text = {'Pausar'} onClickou={Pause} className="Btn Btn-Pause"/> 
+          <Button text = {'Resetar'} onClickou={Reset} disabled={time === 0 } className='Btn Btn-Reset'/> 
         </div>
       </div>
+      
     </div>
   );
 }
